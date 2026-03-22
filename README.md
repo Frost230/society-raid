@@ -159,4 +159,4 @@ Desenvolvido por: FROST
 
 ---
 
-*Para suporte ou dúvidas, entre em nosso Discord: https://discord.gg/WJ76QgRA*
+*Para suporte ou dúvidas, entre em nosso Discord: https://discord.gg/AAnFNAawqA*
