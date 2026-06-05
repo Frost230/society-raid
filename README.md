@@ -1,6 +1,6 @@
-![FROST RAID BOT](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHY5_AqNmhdbrdTzMbXAjqLPuldy6cGNvuFw&s)
+![SOCIETY RAID BOT](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHY5_AqNmhdbrdTzMbXAjqLPuldy6cGNvuFw&s)
 
-# FROST RAID BOT
+# SOCIETY RAID BOT
 
 Bot automatizado avançado para operações de raid em servidores Discord com menu interativo de 90 funções.
 
@@ -140,23 +140,23 @@ Executa simultaneamente todas as funções de destruição para devastação com
 - Discord: https://discord.gg/WJ76QgRA
 - Repositório: [Adicione seu link aqui]
 
-## Avisos Legais
+## LOL
 
-⚠️ **IMPORTANTE**: Este bot foi desenvolvido exclusivamente para fins educacionais e de teste em servidores próprios onde você possui autorização explícita.
+LOL.
 
-- O uso deste bot em servidores sem permissão é ILEGAL
-- Viola os Termos de Serviço do Discord
-- Pode resultar em banimento permanente da plataforma
-- Pode ter consequências legais dependendo da jurisdição
-- Desenvolvedores não se responsabilizam pelo uso indevido
+- LOL
+- LOL
+- LOL
+- LOL
+- LOL
 
 **Use apenas em servidores de teste próprios.**
 
 ## Créditos
 
-FROST RAID BOT V0.0.0
-Desenvolvido por: FROST 
+SOCIETY RAID BOT V0.0.0
+Desenvolvido por: SOCIETY 
 
 ---
 
-*Para suporte ou dúvidas, entre em nosso Discord: https://discord.gg/AAnFNAawqA*
+*Para suporte ou dúvidas, entre em nosso Discord: https://discord.gg/T4ZutpTvWw*

