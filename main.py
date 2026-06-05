@@ -3,9 +3,13 @@ from discord.ext import commands
 import asyncio
 import aiohttp
 import os
+import logging
 from dotenv import load_dotenv
 from flask import Flask
 from threading import Thread
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('discord')
 
 app = Flask('')
 
@@ -14,7 +18,7 @@ def home():
     return "SOCIETY RAID BOT ONLINE"
 
 def run_web():
-    port = int(os.getenv('PORT', 8080))
+    port = int(os.getenv('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
@@ -1313,21 +1317,12 @@ async def spam_messages(canal, banner, art, gifs):
     except:
         pass
 
-async def main():
-    keep_alive()
-    while True:
-        try:
-            await bot.start(TOKEN)
-        except discord.errors.HTTPException as e:
-            if e.status == 429:
-                print("ERRO 429: Rate limit do Discord. Aguardando 60 segundos para tentar novamente...")
-                await asyncio.sleep(60)
-            else:
-                print(f"Erro de conexão: {e}")
-                await asyncio.sleep(10)
-        except Exception as e:
-            print(f"Erro inesperado: {e}")
-            await asyncio.sleep(10)
-
 if __name__ == "__main__":
-    asyncio.run(main())
+    if TOKEN:
+        keep_alive()
+        try:
+            bot.run(TOKEN)
+        except Exception as e:
+            logger.error(f"Erro fatal ao iniciar o bot: {e}")
+    else:
+        logger.error("TOKEN não encontrado no arquivo .env")
