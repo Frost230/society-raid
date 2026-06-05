@@ -4,6 +4,22 @@ import asyncio
 import aiohttp
 import os
 from dotenv import load_dotenv
+from flask import Flask
+from threading import Thread
+
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "SOCIETY RAID BOT ONLINE"
+
+def run_web():
+    port = int(os.getenv('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
+
+def keep_alive():
+    t = Thread(target=run_web)
+    t.start()
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
@@ -1269,4 +1285,5 @@ async def spam_messages(canal, banner, art, gifs):
     except:
         pass
 
+keep_alive()
 bot.run(TOKEN)
