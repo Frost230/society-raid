@@ -19,6 +19,7 @@ def run_web():
 
 def keep_alive():
     t = Thread(target=run_web)
+    t.daemon = True
     t.start()
 
 load_dotenv()
@@ -1285,5 +1286,21 @@ async def spam_messages(canal, banner, art, gifs):
     except:
         pass
 
-keep_alive()
-bot.run(TOKEN)
+async def main():
+    keep_alive()
+    while True:
+        try:
+            await bot.start(TOKEN)
+        except discord.errors.HTTPException as e:
+            if e.status == 429:
+                print("ERRO 429: Rate limit do Discord. Aguardando 60 segundos para tentar novamente...")
+                await asyncio.sleep(60)
+            else:
+                print(f"Erro de conexão: {e}")
+                await asyncio.sleep(10)
+        except Exception as e:
+            print(f"Erro inesperado: {e}")
+            await asyncio.sleep(10)
+
+if __name__ == "__main__":
+    asyncio.run(main())
